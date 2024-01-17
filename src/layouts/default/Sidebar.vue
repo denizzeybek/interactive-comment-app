@@ -15,12 +15,7 @@
         :openKeys="openedSubMenu"
         @openChange="handleSubMenuToggle"
       >
-        <component
-          :is="item.children?.length ? SidebarSubMenu : SidebarMenuItem"
-          v-for="item in navItems"
-          :key="item.routeName"
-          :item="item"
-        />
+        <SidebarMenuItem v-for="item in navItems" :key="item.routeName" :item="item" />
       </Menu>
     </LayoutSider>
   </ConfigProvider>
@@ -29,28 +24,15 @@
 <script lang="ts" setup>
 import { Divider, LayoutSider, Menu, ConfigProvider } from 'ant-design-vue';
 import { ERouteNames } from '@/constants/routeNames';
-import { watch, ref } from 'vue';
-import {
-  CodeSandboxOutlined,
-  HomeOutlined,
-  FileProtectOutlined,
-} from '@ant-design/icons-vue';
+import { ref } from 'vue';
+import { CodeSandboxOutlined, HomeOutlined } from '@ant-design/icons-vue';
 import SidebarMenuItem from './_components/SidebarMenuItem.vue';
-import SidebarSubMenu from './_components/SidebarSubMenu.vue';
 import type { Key } from 'ant-design-vue/es/_util/type';
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
 
 const navItems = [
   {
     icon: HomeOutlined,
     routeName: ERouteNames.Home,
-  },
-  {
-    icon: FileProtectOutlined,
-    routeName: ERouteNames.SecondaryTitle,
-    children: [ERouteNames.Secondary],
   },
 ];
 
@@ -65,30 +47,4 @@ const handleSubMenuToggle = (keys: Key[]) => {
     openedSubMenu.value = [];
   }
 };
-
-watch(
-  () => route.name,
-  (routeName) => {
-    const navItem = navItems.find((item) => {
-      if (item.children) {
-        return item.children.includes(routeName as ERouteNames);
-      }
-      return item.routeName === routeName;
-    });
-
-    if (navItem) {
-      if (navItem.children) {
-        openedSubMenu.value = [navItem.routeName];
-        const childItem = navItem.children.find((child) => child === routeName);
-        if (childItem) {
-          selectedNavItem.value = [childItem];
-        }
-      } else {
-        selectedNavItem.value = [navItem.routeName];
-        openedSubMenu.value = [];
-      }
-    }
-  },
-  { immediate: true },
-);
 </script>

@@ -1,8 +1,5 @@
 <template>
   <main>
-    welcome home page
+    <h1>Welcome to home page</h1>
   </main>
 </template>
-
-<script setup lang="ts">
-</script>
