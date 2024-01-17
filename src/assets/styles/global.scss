@@ -1,0 +1,11 @@
+.center-drawer-title {
+  .ant-drawer-header {
+    position: relative;
+  }
+
+  .ant-drawer-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
