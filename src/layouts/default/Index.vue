@@ -7,7 +7,7 @@
           <RouterView />
         </LayoutContent>
       </div>
-      <LayoutFooter class="!px-5">©2024</LayoutFooter>
+      <LayoutFooter class="!px-5">Made by Deniz Zeybek © 2024</LayoutFooter>
     </Layout>
   </Layout>
 </template>
