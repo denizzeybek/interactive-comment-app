@@ -12,6 +12,8 @@ import RCheckbox from '@/components/ui/Checkbox.vue';
 import RTableActionCell from '@/components/ui/TableActionCell.vue';
 import RTableDateRangeFilter from '@/components/ui/TableDateRangeFilter.vue';
 import RTableSearchFilter from '@/components/ui/TableSearchFilter.vue';
+import RButton from '@/components/ui/Button.vue';
+import RTextarea from '@/components/ui/Textarea.vue';
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     RInput: typeof RInput;
@@ -28,5 +30,7 @@ declare module '@vue/runtime-core' {
     RDateRangePicker: typeof RDateRangePicker;
     RDatePicker: typeof RDatePicker;
     RCheckbox: typeof RCheckbox;
+    RButton: typeof RButton;
+    RTextarea: typeof RTextarea;
   }
 }

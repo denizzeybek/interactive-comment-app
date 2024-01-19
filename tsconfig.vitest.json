@@ -3,7 +3,7 @@
   "exclude": [],
   "compilerOptions": {
     "composite": true,
-    "lib": [],
+    "lib": ["es5", "es6", "dom", "dom.iterable"],
     "types": ["node", "jsdom"]
   }
 }

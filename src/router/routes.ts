@@ -4,7 +4,7 @@ import type { RouteRecordRaw } from 'vue-router';
 // LAYOUTS
 import DefaultLayout from '@/layouts/default/Index.vue';
 
-import Home from '@/views/Home.vue';
+import Home from '@/views/Home/Home.vue';
 
 const routes: RouteRecordRaw[] = [
   // PROTECTED/DEFAULT ROUTES
