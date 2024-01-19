@@ -47,20 +47,27 @@ import CommentBody from './CommentBody.vue';
 import NewCommentEditor from '../NewCommentEditor.vue';
 import { ref } from 'vue';
 
-const props = defineProps<{
+interface IProps {
   comment: Comment;
   currentUser: User;
-}>();
+}
+
+type TReplyData = {
+  id: number;
+  payload: Comment;
+};
+
+type TEditData = {
+  id: number;
+  content: string;
+};
+
+const props = defineProps<IProps>();
 const commentsStore = useCommentsStore();
 
 const isReplying = ref(false);
 const isEditing = ref(false);
 const editData = ref('');
-
-const onDelete = (id: number) => {
-  commentsStore.deleteComment(id);
-  console.log('id ', id);
-};
 
 const onEdit = (val: boolean) => {
   isEditing.value = val;
@@ -73,25 +80,20 @@ const onReply = (val: boolean) => {
   isReplying.value = val;
 };
 
-type TEditData = {
-  id: number;
-  content: string;
-};
-
 const onEditSubmit = (data: TEditData) => {
   const { id, content } = data;
   commentsStore.updateReply(id, content);
   isEditing.value = false;
 };
 
-type TReplyData = {
-  id: number;
-  payload: Comment;
-};
 const onReplySubmit = (data: TReplyData) => {
   const { id, payload } = data;
   commentsStore.addNewReply(id, payload);
   isReplying.value = false;
+};
+
+const onDelete = (id: number) => {
+  commentsStore.deleteComment(id);
 };
 </script>
 

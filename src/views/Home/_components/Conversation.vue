@@ -2,7 +2,7 @@
   <div class="mb-6" v-for="comment in commentsStore.list" :key="comment.id">
     <Comment :comment="comment" :current-user="currentUser" />
   </div>
-  <NewCommentEditor @onSubmit="onNewSubmit($event)" :current-user="currentUser" :isSubmit="true" />
+  <NewCommentEditor :current-user="currentUser" :isSubmit="true" @onSubmit="onNewSubmit($event)" />
 </template>
 
 <script setup lang="ts">
@@ -16,6 +16,7 @@ import type { Comment as TComment } from '@/stores/comments';
 
 const commentsStore = useCommentsStore();
 const userStore = useUserStore();
+
 onMounted(() => {
   commentsStore.fetchComments();
   userStore.fetchCurrentUser();
@@ -23,7 +24,7 @@ onMounted(() => {
 
 const currentUser = computed(() => userStore.currentUser as User);
 
-const onNewSubmit = async(payload: TComment) => {
+const onNewSubmit = async (payload: TComment) => {
   await commentsStore.addNewComment(payload);
   await commentsStore.fetchComments();
 };

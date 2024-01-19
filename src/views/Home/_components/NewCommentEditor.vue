@@ -14,9 +14,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import type { User } from '@/stores/user';
-import { useCommentsStore } from '@/stores/comments';
 import type { Comment } from '@/stores/comments';
-const commentStore = useCommentsStore();
+
 interface IProps {
   commentId?: number;
   parentCommentId?: number;
@@ -25,15 +24,14 @@ interface IProps {
   editData?: string;
 }
 
-const props = withDefaults(defineProps<IProps>(), {
-  isSubmit: false,
-});
-
 interface IEmits {
   (event: 'onSubmit', value: any): void;
   (event: 'onReply', value: boolean): void;
 }
 
+const props = withDefaults(defineProps<IProps>(), {
+  isSubmit: false,
+});
 const emit = defineEmits<IEmits>();
 
 const localText = ref(props?.editData || '');
