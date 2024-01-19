@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { EStoreNames } from '@/constants/storeNames';
-import axios from 'axios';
+import { currentUser } from '@/mocks/db.json';
 
 export type User = {
   image: {
@@ -20,17 +20,7 @@ export const useUserStore = defineStore(EStoreNames.USER, {
   }),
   actions: {
     fetchCurrentUser() {
-      return new Promise((resolve, reject) => {
-        axios
-          .get<User>('currentUser')
-          .then((response) => {
-            this.currentUser = response.data;
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
+      this.currentUser = currentUser;
     },
   },
 });

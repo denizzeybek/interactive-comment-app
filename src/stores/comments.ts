@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { EStoreNames } from '@/constants/storeNames';
 import type { User } from './user';
-import axios from 'axios';
+import { comments } from '@/mocks/db.json';
 
 export type Comment = {
   id: number;
@@ -68,7 +68,6 @@ const addReplyToCommentById = (comments: Comment[], parentId: number, newReply: 
 
     if (comment.id === parentId) {
       // Add the new reply to the parent comment's replies array
-      console.log('comment ', comment);
       if (comment.replies) comment.replies.push(newReply);
       return true; // Reply added successfully
     }
@@ -92,46 +91,10 @@ export const useCommentsStore = defineStore(EStoreNames.COMMENTS, {
   }),
   actions: {
     fetchComments() {
-      return new Promise((resolve, reject) => {
-        axios
-          .get<Comment[]>('/comments')
-          .then((response) => {
-            this.list = response.data;
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
-    },
-    getCommentById(id: number) {
-      const commentList = this.list;
-      return new Promise<Comment>((resolve, reject) => {
-        try {
-          let res = commentList.find((comment) => comment.id === id) as Comment;
-          if (!res) {
-            commentList.some((comment: Comment) => {
-              res = comment.replies?.find((reply) => reply.id === id) as Comment;
-              return res !== undefined;
-            });
-          }
-          resolve(res);
-        } catch (error) {
-          reject(error);
-        }
-      });
+      this.list = comments as unknown as Comment[];
     },
     addNewComment(payload: Comment) {
-      return new Promise((resolve, reject) => {
-        axios
-          .post('/comments', payload)
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
+      this.list.push(payload)
     },
     addNewReply(parentId: number, newComment: Comment) {
       addReplyToCommentById(this.list, parentId, newComment);
