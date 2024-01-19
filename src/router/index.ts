@@ -12,7 +12,7 @@ router.beforeEach(async (to, _, next) => {
 });
 
 // SET PAGE TITLE
-const DEFAULT_TITLE = 'Vue3';
+const DEFAULT_TITLE = 'Comment App';
 router.afterEach((to) => {
   nextTick(() => {
     document.title = typeof to.meta.title === 'string' ? `${to.meta.title}` : DEFAULT_TITLE;
