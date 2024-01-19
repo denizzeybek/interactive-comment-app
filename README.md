@@ -28,7 +28,6 @@ yarn install
 To start the development server, use the following command:
 
 ```bash
-yarn json:server
 yarn dev
 ```
 
