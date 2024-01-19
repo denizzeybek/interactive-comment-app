@@ -1,6 +1,6 @@
 import { ERouteNames } from '@/constants/routeNames';
 import type { RouteRecordRaw } from 'vue-router';
-import Conversation from '@/views/Conversation.vue';
+import Conversation from '@/views/conversation/Conversation.vue';
 // LAYOUTS
 import DefaultLayout from '@/layouts/default/Index.vue';
 
