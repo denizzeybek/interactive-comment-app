@@ -1,17 +1,13 @@
-# Vue3 TypeScript Boilerplate with Ant Design Vue and Tailwind CSS
+# Vue3 Interactive Comment App
 
-Welcome to this VueJS 3 boilerplate project, featuring a robust set of technologies to streamline your development process. Built with VueJS 3, TypeScript, Pinia state management, Ant Design Vue for UI components, and Tailwind CSS for styling, this boilerplate provides a solid foundation for creating modern and scalable web applications.
-
-Several UI components are integrated into this project, offering additional functionality and ease of use. Whether you are a seasoned developer or just starting with VueJS, this project offers a structured and efficient starting point for your next endeavor. Feel free to explore the codebase, contribute, and customize as needed. Happy coding!
+The project aims to develop an interactive comment application using Vue 3, TypeScript, and Tailwind CSS. This application supports modern user interfaces with interactive comment features. The combination of Vue 3 and TypeScript ensures a more type-safe code, while Tailwind CSS provides a fast and stylish design. The application allows users to add comments, reply to comments, and engage in interactions. Detailed installation and usage instructions for the project can be found below.
 
 ## Technologies Used
 
-- VueJS v3
+- VueJS (script setup)
 - Typescript
 - Pinia
-- Ant Design Vue
 - Tailwind CSS
-- UI Components based on Ant Design
 
 ## Getting Started
 
@@ -32,10 +28,9 @@ Or you can use this project as a template by clicking the 'Use this template' bu
 To start the development server, use the following command:
 
 ```bash
+yarn json:server
 yarn dev
 ```
-
-The project will run at http://localhost:5173
 
 ## ESLint
 
