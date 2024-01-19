@@ -1,10 +1,8 @@
 import { ERouteNames } from '@/constants/routeNames';
 import type { RouteRecordRaw } from 'vue-router';
-
+import Conversation from '@/views/Conversation.vue';
 // LAYOUTS
 import DefaultLayout from '@/layouts/default/Index.vue';
-
-import Home from '@/views/Home/Home.vue';
 
 const routes: RouteRecordRaw[] = [
   // PROTECTED/DEFAULT ROUTES
@@ -16,7 +14,7 @@ const routes: RouteRecordRaw[] = [
         path: '/',
         alias: '',
         name: ERouteNames.Home,
-        component: Home,
+        component: Conversation,
         meta: {
           isLayoutPadding: false,
         },

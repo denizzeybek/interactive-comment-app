@@ -1,11 +1,12 @@
 <template>
   <Layout class="h-screen">
-    <Sidebar />
     <Layout>
       <Header />
-      <LayoutContent :class="pagePadding" class="overflow-auto">
-        <RouterView />
-      </LayoutContent>
+      <div class="container mx-auto overflow-y-auto">
+        <LayoutContent :class="pagePadding" class="overflow-auto">
+          <RouterView />
+        </LayoutContent>
+      </div>
       <LayoutFooter class="!px-5">©2024</LayoutFooter>
     </Layout>
   </Layout>
@@ -16,7 +17,6 @@ import { Layout, LayoutContent, LayoutFooter } from 'ant-design-vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import Header from './Header.vue';
-import Sidebar from './Sidebar.vue';
 
 const route = useRoute();
 const pagePadding = computed(() => {

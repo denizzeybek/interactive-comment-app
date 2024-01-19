@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import NewCommentEditor from './NewCommentEditor.vue';
-import Comment from './Comment/Comment.vue';
+import NewCommentEditor from './conversation/_components/NewCommentEditor.vue';
+import Comment from './conversation/_components/comment/Comment.vue';
 import { onMounted, computed } from 'vue';
 import { useCommentsStore } from '@/stores/comments';
 import { useUserStore } from '@/stores/user';

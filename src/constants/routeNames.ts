@@ -1,3 +1,3 @@
 export enum ERouteNames {
-  Home = 'Comment App',
+  Home = 'Interactive Comment App',
 }
