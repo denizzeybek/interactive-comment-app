@@ -61,30 +61,15 @@ const onComment = async () => {
   };
 
   if (props.commentId) {
-    // bu bir edittir
+    // this is edit
+    emit('onSubmit', { id: props.commentId, content: localText.value });
   } else if (props.parentCommentId) {
-    console.log('props.parentCommentId ', props.parentCommentId);
-    // bu bir replydir
-    // parentId'si 2 olan commentin listesine push et
-    // parentid si 2 olanın commentini put et
-    const currentComment = await commentStore.getCommentById(props.parentCommentId);
-    const { id, replies } = currentComment;
-    if (replies && replies.length) {
-      const commentsReplies:Comment[] = replies.slice();
-      commentsReplies.push(payload);
-      console.log('commentsReplies ', commentsReplies);
-      payload = {...currentComment, replies: commentsReplies}
-    } else {
-      payload = {...currentComment, replies: [payload] }
-    }
-    console.log('new payload ', payload);
-    emit('onReply', false)
-    // commentStore.addNewReply(payload, id);
+    // this is reply
+    emit('onSubmit', { id: props.parentCommentId, payload: payload });
   } else {
-    // bu yeni bir commentdir
-
-    await commentStore.addNewComment(payload);
-    await commentStore.fetchComments();
+    // this is new comment
+    emit('onSubmit', payload);
   }
+  localText.value = '';
 };
 </script>

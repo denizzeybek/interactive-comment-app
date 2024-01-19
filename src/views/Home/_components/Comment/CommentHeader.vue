@@ -6,6 +6,7 @@
         class="object-cover object-center w-[36px] h-[36px] overflow-hidden rounded-full"
       />
       <span class="text-lg font-semibold">{{ userComment.username }}</span>
+      <span class="text-lg font-semibold">{{ comment.id }}</span>
       <span v-if="owner" class="text-sm p-1 rounded-md text-white bg-indigo-500">you</span>
       <span class="text-sm text-slate-600">{{ comment.createdAt }}</span>
     </div>

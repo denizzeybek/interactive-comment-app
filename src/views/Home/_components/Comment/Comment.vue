@@ -14,7 +14,7 @@
         :comment-id="comment.id"
         :editData="editData"
         :current-user="currentUser"
-        @onSubmit="onEditSubmit($event, comment)"
+        @onSubmit="onEditSubmit($event)"
       />
       <CommentBody v-else :content="comment?.content" :replyingTo="comment.replyingTo" />
     </div>
@@ -27,7 +27,7 @@
     :parent-comment-id="comment.id"
     :current-user="currentUser"
     @onSubmit="onReplySubmit($event)"
-        @onReply="onReply($event)"
+    @onReply="onReply($event)"
   />
 </template>
 
@@ -39,6 +39,7 @@ export default {
 
 <script setup lang="ts">
 import type { Comment } from '@/stores/comments';
+import { useCommentsStore } from '@/stores/comments';
 import type { User } from '@/stores/user';
 import CommentReaction from './CommentReaction.vue';
 import CommentHeader from './CommentHeader.vue';
@@ -50,11 +51,14 @@ const props = defineProps<{
   comment: Comment;
   currentUser: User;
 }>();
+const commentsStore = useCommentsStore();
 
 const isReplying = ref(false);
 const isEditing = ref(false);
 const editData = ref('');
+
 const onDelete = (id: number) => {
+  commentsStore.deleteComment(id);
   console.log('id ', id);
 };
 
@@ -65,16 +69,29 @@ const onEdit = (val: boolean) => {
   }
 };
 
-const onReply = (val:boolean) => {
+const onReply = (val: boolean) => {
   isReplying.value = val;
 };
 
-const onEditSubmit = (val: string, comment: Comment) => {
-  console.log('val ', val);
+type TEditData = {
+  id: number;
+  content: string;
 };
 
-const onReplySubmit = (val: string) => {
-  console.log('val ', val);
+const onEditSubmit = (data: TEditData) => {
+  const { id, content } = data;
+  commentsStore.updateReply(id, content);
+  isEditing.value = false;
+};
+
+type TReplyData = {
+  id: number;
+  payload: Comment;
+};
+const onReplySubmit = (data: TReplyData) => {
+  const { id, payload } = data;
+  commentsStore.addNewReply(id, payload);
+  isReplying.value = false;
 };
 </script>
 
