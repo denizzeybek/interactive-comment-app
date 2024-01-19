@@ -1,16 +1,18 @@
 <template>
-  <div class="flex items-center justify-between gap-2">
+  <div class="flex flex-wrap md:flex-nowrap items-center justify-between gap-2">
     <div class="flex items-center gap-2">
       <img
         :src="userComment.image.png"
         class="object-cover object-center w-[36px] h-[36px] overflow-hidden rounded-full"
       />
       <span class="text-lg font-semibold">{{ userComment.username }}</span>
-      <span class="text-lg font-semibold">{{ comment.id }}</span>
       <span v-if="owner" class="text-sm p-1 rounded-md text-white bg-indigo-500">you</span>
       <span class="text-sm text-slate-600">{{ comment.createdAt }}</span>
     </div>
-    <div class="flex items-center gap-2">
+    <div
+      class="flex items-center grow gap-2 md:justify-end md:mt-0 sm:mt-10"
+      :class="[owner ? 'justify-between' : 'justify-end']"
+    >
       <template v-if="owner">
         <RButton @click="$emit('onDelete', comment.id)" variant="danger">
           <DeleteOutlined />Delete

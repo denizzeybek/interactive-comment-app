@@ -124,4 +124,35 @@ const onDelete = (id: number) => {
     }
   }
 }
+
+@media (max-width: 768px) {
+  .replies {
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    position: relative;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    &::before {
+      position: absolute;
+      left: -10px;
+      top: -12px;
+      bottom: -12px;
+      content: '';
+      width: 3px;
+      background-color: rgb(226 232 240);
+    }
+    &:last-child {
+      &::before {
+        bottom: 0;
+      }
+    }
+    &:first-child:last-child {
+      &::before {
+        top: 0;
+      }
+    }
+  }
+}
 </style>
