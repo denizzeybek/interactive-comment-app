@@ -1,6 +1,6 @@
 # Vue3 Interactive Comment App
 
-<img width="952" alt="interactive-comment-app" src="https://github.com/denizzeybek/interactive-comment-app/assets/46136181/79091178-f8f6-41f2-a60e-c2470d7f4973">
+<img width="952" alt="interactive-comment-app" src="https://github.com/denizzeybek/interactive-comment-app/assets/46136181/7773b0b7-6abb-4403-95ba-29d95e688edd">
 
 The project aims to develop an interactive comment application using Vue 3, TypeScript, and Tailwind CSS. This application supports modern user interfaces with interactive comment features. The combination of Vue 3 and TypeScript ensures a more type-safe code, while Tailwind CSS provides a fast and stylish design. The application allows users to add comments, reply to comments, and engage in interactions. Detailed installation and usage instructions for the project can be found below.
 
