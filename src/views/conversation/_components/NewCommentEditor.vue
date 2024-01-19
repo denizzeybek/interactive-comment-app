@@ -45,7 +45,7 @@ const buttonText = computed(() => {
   return 'Reply';
 });
 
-const onComment = async () => {
+const onComment = () => {
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 

@@ -24,8 +24,7 @@ onMounted(() => {
 
 const currentUser = computed(() => userStore.currentUser as User);
 
-const onNewSubmit = async (payload: TComment) => {
-  await commentsStore.addNewComment(payload);
-  await commentsStore.fetchComments();
+const onNewSubmit = (payload: TComment) => {
+  commentsStore.addNewComment(payload);
 };
 </script>

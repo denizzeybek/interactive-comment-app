@@ -17,5 +17,5 @@ interface IProps {
   score: number;
 }
 
-const props = defineProps<IProps>();
+defineProps<IProps>();
 </script>

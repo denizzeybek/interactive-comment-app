@@ -71,9 +71,7 @@ const editData = ref('');
 
 const onEdit = (val: boolean) => {
   isEditing.value = val;
-  if (val) {
-    editData.value = props.comment.content;
-  }
+  editData.value = props.comment.content;
 };
 
 const onReply = (val: boolean) => {

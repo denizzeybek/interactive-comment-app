@@ -94,7 +94,7 @@ export const useCommentsStore = defineStore(EStoreNames.COMMENTS, {
       this.list = comments as unknown as Comment[];
     },
     addNewComment(payload: Comment) {
-      this.list.push(payload)
+      this.list.push(payload);
     },
     addNewReply(parentId: number, newComment: Comment) {
       addReplyToCommentById(this.list, parentId, newComment);

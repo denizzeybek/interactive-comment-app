@@ -11,9 +11,11 @@
       <span class="text-sm text-slate-600">{{ comment.createdAt }}</span>
     </div>
     <div class="flex items-center gap-2">
-      <template  v-if="owner">
-        <RButton @click="$emit('onDelete', comment.id)" variant="danger"> <DeleteOutlined />Delete </RButton>
-        <RButton  @click="$emit('onEdit', true)" > <EditOutlined /> Edit </RButton>
+      <template v-if="owner">
+        <RButton @click="$emit('onDelete', comment.id)" variant="danger">
+          <DeleteOutlined />Delete
+        </RButton>
+        <RButton @click="$emit('onEdit', true)"> <EditOutlined /> Edit </RButton>
       </template>
       <RButton v-else @click="$emit('onReply', true)"> <RollbackOutlined /> Reply </RButton>
     </div>
@@ -33,7 +35,6 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const userComment = computed(() => props.comment.user)
+const userComment = computed(() => props.comment.user);
 const owner = computed(() => userComment.value.username === props.currentUser.username);
-
 </script>
