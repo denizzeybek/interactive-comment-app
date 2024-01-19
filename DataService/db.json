@@ -110,34 +110,6 @@
         "username": "juliusomo"
       },
       "replies": []
-    },
-    {
-      "id": 769,
-      "content": "asdasd",
-      "createdAt": "Fri Jan 19 2024",
-      "score": 0,
-      "user": {
-        "image": {
-          "png": "/DataService/images/avatars/image-juliusomo.png",
-          "webp": "/DataService/images/avatars/image-juliusomo.webp"
-        },
-        "username": "juliusomo"
-      },
-      "replies": []
-    },
-    {
-      "id": 579,
-      "content": "asdasdas",
-      "createdAt": "Fri Jan 19 2024",
-      "score": 0,
-      "user": {
-        "image": {
-          "png": "/DataService/images/avatars/image-juliusomo.png",
-          "webp": "/DataService/images/avatars/image-juliusomo.webp"
-        },
-        "username": "juliusomo"
-      },
-      "replies": []
     }
   ]
 }

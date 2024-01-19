@@ -17,13 +17,11 @@ You can start by running the following commands in the project root directory:
 
 ```bash
 # Clone the project
-git clone https://github.com/denizzeybek/vue3-ts-boilerplate.git
+git clone https://github.com/denizzeybek/interactive-comment-app.git
 
 # Install the necessary packages
 yarn install
 ```
-
-Or you can use this project as a template by clicking the 'Use this template' button above.
 
 ## Development
 
