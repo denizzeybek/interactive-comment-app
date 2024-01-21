@@ -18,84 +18,33 @@ interface State {
   comment: Comment | undefined;
 }
 
-const removeCommentById = (comments: Comment[], commentId: number) => {
-  for (let i = comments.length - 1; i >= 0; i--) {
-    const comment = comments[i];
-
-    if (comment.id === commentId) {
-      // Remove the comment from the array
-      comments.splice(i, 1);
-      return true; // Comment found and removed
-    }
-
-    // Check replies recursively
-    if (comment.replies && comment.replies.length > 0) {
-      const commentRemoved = removeCommentById(comment.replies, commentId);
-      if (commentRemoved) {
-        return true; // Comment found and removed in the replies
-      }
-    }
-  }
-
-  return false; // Comment not found
-};
-
-const updateContentById = (comments: Comment[], commentId: number, newContent: string) => {
-  for (let i = 0; i < comments.length; i++) {
-    const comment = comments[i];
-
-    if (comment.id === commentId) {
-      // Replace the content of the comment
-      comment.content = newContent;
-      return true; // Comment found and content replaced
-    }
-
-    // Check replies recursively
-    if (comment.replies && comment.replies.length > 0) {
-      const commentReplaced = updateContentById(comment.replies, commentId, newContent);
-      if (commentReplaced) {
-        return true; // Comment found and content replaced in the replies
-      }
-    }
-  }
-
-  return false; // Comment not found
-};
-const updateScoreById = (comments: Comment[], commentId: number, value: number) => {
-  for (let i = 0; i < comments.length; i++) {
-    const comment = comments[i];
-
-    if (comment.id === commentId) {
-      // Replace the content of the comment
-      comment.score = value;
-      return true; // Comment found and content replaced
-    }
-
-    // Check replies recursively
-    if (comment.replies && comment.replies.length > 0) {
-      const scoreReplaced = updateScoreById(comment.replies, commentId, value);
-      if (scoreReplaced) {
-        return true; // Comment found and content replaced in the replies
-      }
-    }
-  }
-
-  return false; // Comment not found
-};
-
-const addReplyToCommentById = (comments: Comment[], parentId: number, newReply: Comment) => {
+const updateComment = (
+  comments: Comment[],
+  parentId: number,
+  type: 'deleteComment' | 'updateContent' | 'updateScore' | 'addReply',
+  value?: number | string | Comment | null,
+) => {
   for (let i = 0; i < comments.length; i++) {
     const comment = comments[i];
 
     if (comment.id === parentId) {
-      // Add the new reply to the parent comment's replies array
-      if (comment.replies) comment.replies.push(newReply);
+      if (type === 'deleteComment') {
+        // Add the new reply to the parent comment's replies array
+        comments.splice(i, 1);
+      } else if (type === 'updateContent') {
+        comment.content = value as string;
+      } else if (type === 'updateScore') {
+        comment.score = value as number;
+      } else {
+        // add reply
+        if (comment.replies) comment.replies.push(value as Comment);
+      }
       return true; // Reply added successfully
     }
 
     // Check replies recursively
     if (comment.replies && comment.replies.length > 0) {
-      const replyAdded = addReplyToCommentById(comment.replies, parentId, newReply);
+      const replyAdded = updateComment(comment.replies, parentId, type,value);
       if (replyAdded) {
         return true; // Reply added in the replies
       }
@@ -118,16 +67,16 @@ export const useCommentsStore = defineStore(EStoreNames.COMMENTS, {
       this.list.push(payload);
     },
     addNewReply(parentId: number, newComment: Comment) {
-      addReplyToCommentById(this.list, parentId, newComment);
+      updateComment(this.list, parentId, 'addReply', newComment);
     },
     updateReply(commentId: number, content: string) {
-      updateContentById(this.list, commentId, content);
+      updateComment(this.list, commentId, 'updateContent', content);
     },
     deleteComment(commentId: number): void {
-      removeCommentById(this.list, commentId);
+      updateComment(this.list, commentId, 'deleteComment');
     },
     updateScore(commentId: number, value: number): void {
-      updateScoreById(this.list, commentId, value);
+      updateComment(this.list, commentId, 'updateScore', value);
     },
   },
 });
