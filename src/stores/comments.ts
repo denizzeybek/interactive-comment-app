@@ -61,6 +61,27 @@ const updateContentById = (comments: Comment[], commentId: number, newContent: s
 
   return false; // Comment not found
 };
+const updateScoreById = (comments: Comment[], commentId: number, value: number) => {
+  for (let i = 0; i < comments.length; i++) {
+    const comment = comments[i];
+
+    if (comment.id === commentId) {
+      // Replace the content of the comment
+      comment.score = value;
+      return true; // Comment found and content replaced
+    }
+
+    // Check replies recursively
+    if (comment.replies && comment.replies.length > 0) {
+      const scoreReplaced = updateScoreById(comment.replies, commentId, value);
+      if (scoreReplaced) {
+        return true; // Comment found and content replaced in the replies
+      }
+    }
+  }
+
+  return false; // Comment not found
+};
 
 const addReplyToCommentById = (comments: Comment[], parentId: number, newReply: Comment) => {
   for (let i = 0; i < comments.length; i++) {
@@ -99,11 +120,14 @@ export const useCommentsStore = defineStore(EStoreNames.COMMENTS, {
     addNewReply(parentId: number, newComment: Comment) {
       addReplyToCommentById(this.list, parentId, newComment);
     },
-    updateReply(id: number, content: string) {
-      updateContentById(this.list, id, content);
+    updateReply(commentId: number, content: string) {
+      updateContentById(this.list, commentId, content);
     },
     deleteComment(commentId: number): void {
       removeCommentById(this.list, commentId);
+    },
+    updateScore(commentId: number, value: number): void {
+      updateScoreById(this.list, commentId, value);
     },
   },
 });

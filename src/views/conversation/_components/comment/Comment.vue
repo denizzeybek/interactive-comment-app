@@ -1,6 +1,7 @@
 <template>
   <div class="flex items-start gap-4 bg-white p-3 rounded-md">
-    <CommentReaction :score="comment?.score" />
+    <CommentReaction 
+        :comment-id="comment.id" :score="comment?.score" />
     <div class="flex flex-col gap-2 flex-1">
       <CommentHeader
         :current-user="currentUser"
