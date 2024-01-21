@@ -26,7 +26,6 @@ interface IProps {
 
 interface IEmits {
   (event: 'onSubmit', value: any): void;
-  (event: 'onReply', value: boolean): void;
 }
 
 const props = withDefaults(defineProps<IProps>(), {

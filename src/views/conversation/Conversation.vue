@@ -2,7 +2,7 @@
   <div class="mb-6" v-for="comment in commentsStore.list" :key="comment.id">
     <Comment :comment="comment" :current-user="currentUser" />
   </div>
-  <NewCommentEditor :current-user="currentUser" :isSubmit="true" @onSubmit="onNewSubmit($event)" />
+  <NewCommentEditor :current-user="currentUser" :isSubmit="true" @on-submit="onNewSubmit($event)" />
 </template>
 
 <script setup lang="ts">

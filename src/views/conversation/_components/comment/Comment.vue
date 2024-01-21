@@ -1,23 +1,22 @@
 <template>
   <div class="flex items-start gap-4 bg-white p-3 rounded-md">
-    <CommentReaction 
-        :comment-id="comment.id" :score="comment?.score" />
+    <CommentReaction :comment-id="comment.id" :score="comment?.score" />
     <div class="flex flex-col gap-2 flex-1">
       <CommentHeader
         :current-user="currentUser"
         :comment="comment"
-        @onDelete="onDelete($event)"
-        @onEdit="onEdit($event)"
-        @onReply="onReply($event)"
+        @on-delete="onDelete($event)"
+        @on-edit="onEdit($event)"
+        @on-reply="onReply($event)"
       />
       <NewCommentEditor
         v-if="isEditing"
         :comment-id="comment.id"
-        :editData="editData"
+        :edit-data="editData"
         :current-user="currentUser"
-        @onSubmit="onEditSubmit($event)"
+        @on-submit="onEditSubmit($event)"
       />
-      <CommentBody v-else :content="comment?.content" :replyingTo="comment.replyingTo" />
+      <CommentBody v-else :content="comment?.content" :replying-to="comment.replyingTo" />
     </div>
   </div>
   <div v-for="(reply, index) in comment?.replies" :key="index" class="replies">
@@ -28,7 +27,6 @@
     :parent-comment-id="comment.id"
     :current-user="currentUser"
     @onSubmit="onReplySubmit($event)"
-    @onReply="onReply($event)"
   />
 </template>
 
@@ -53,16 +51,6 @@ interface IProps {
   currentUser: User;
 }
 
-type TReplyData = {
-  id: number;
-  payload: Comment;
-};
-
-type TEditData = {
-  id: number;
-  content: string;
-};
-
 const props = defineProps<IProps>();
 const commentsStore = useCommentsStore();
 
@@ -79,13 +67,13 @@ const onReply = (val: boolean) => {
   isReplying.value = val;
 };
 
-const onEditSubmit = (data: TEditData) => {
+const onEditSubmit = (data: { id: number; content: string }) => {
   const { id, content } = data;
   commentsStore.updateReply(id, content);
   isEditing.value = false;
 };
 
-const onReplySubmit = (data: TReplyData) => {
+const onReplySubmit = (data: { id: number; payload: Comment }) => {
   const { id, payload } = data;
   commentsStore.addNewReply(id, payload);
   isReplying.value = false;
