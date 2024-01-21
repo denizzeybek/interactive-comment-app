@@ -29,14 +29,16 @@ const updateComment = (
 
     if (comment.id === parentId) {
       if (type === 'deleteComment') {
-        // Add the new reply to the parent comment's replies array
+        // delete comment
         comments.splice(i, 1);
       } else if (type === 'updateContent') {
+        // update comment content
         comment.content = value as string;
       } else if (type === 'updateScore') {
+        // update comment score
         comment.score = value as number;
       } else {
-        // add reply
+        // add new reply
         if (comment.replies) comment.replies.push(value as Comment);
       }
       return true; // Reply added successfully
@@ -44,8 +46,8 @@ const updateComment = (
 
     // Check replies recursively
     if (comment.replies && comment.replies.length > 0) {
-      const replyAdded = updateComment(comment.replies, parentId, type,value);
-      if (replyAdded) {
+      const updatedComment = updateComment(comment.replies, parentId, type, value);
+      if (updatedComment) {
         return true; // Reply added in the replies
       }
     }
