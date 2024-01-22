@@ -2,10 +2,7 @@
   <div class="flex items-start gap-4 bg-white p-3 rounded-md">
     <div class="flex flex-col justify-center items-center h-full mt-10">
       <RButton v-if="comment?.replies?.length" @click="toggleReplies" variant="primary">
-        <!-- <Transition> -->
         <UpOutlined class="button-icon" :class="[showReplies ? 'active' : '']" />
-        <!-- <DownOutlined v-else /> -->
-        <!-- </Transition> -->
       </RButton>
       <div v-else class="w-[26px] h-[30px]"></div>
     </div>
@@ -30,11 +27,9 @@
   </div>
   <TransitionGroup name="fade-in" mode="out-in">
     <template v-if="showReplies">
-      <!-- <div class="replies-wrapper" :class="[showReplies ? '' : 'hide-replies']"> -->
       <div v-for="(reply, index) in comment?.replies" :key="index" class="replies">
         <Comment v-if="comment?.replies" :comment="reply" :current-user="currentUser" />
       </div>
-      <!-- </div> -->
     </template>
   </TransitionGroup>
   <NewCommentEditor
@@ -60,7 +55,7 @@ import CommentHeader from './CommentHeader.vue';
 import CommentBody from './CommentBody.vue';
 import NewCommentEditor from '../NewCommentEditor.vue';
 import { ref } from 'vue';
-import { DownOutlined, UpOutlined } from '@ant-design/icons-vue';
+import { UpOutlined } from '@ant-design/icons-vue';
 
 interface IProps {
   comment: Comment;
