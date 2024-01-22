@@ -1,5 +1,14 @@
 <template>
   <div class="flex items-start gap-4 bg-white p-3 rounded-md">
+    <div class="flex flex-col justify-center items-center h-full mt-10">
+      <RButton v-if="comment?.replies?.length" @click="toggleReplies" variant="primary">
+        <!-- <Transition> -->
+        <UpOutlined class="button-icon" :class="[showReplies ? 'active' : '']" />
+        <!-- <DownOutlined v-else /> -->
+        <!-- </Transition> -->
+      </RButton>
+      <div v-else class="w-[26px] h-[30px]"></div>
+    </div>
     <CommentReaction :comment-id="comment.id" :score="comment?.score" />
     <div class="flex flex-col gap-2 flex-1">
       <CommentHeader
@@ -19,9 +28,15 @@
       <CommentBody v-else :content="comment?.content" :replying-to="comment.replyingTo" />
     </div>
   </div>
-  <div v-for="(reply, index) in comment?.replies" :key="index" class="replies">
-    <Comment v-if="comment?.replies" :comment="reply" :current-user="currentUser" />
-  </div>
+  <TransitionGroup name="fade-in" mode="out-in">
+    <template v-if="showReplies">
+      <!-- <div class="replies-wrapper" :class="[showReplies ? '' : 'hide-replies']"> -->
+      <div v-for="(reply, index) in comment?.replies" :key="index" class="replies">
+        <Comment v-if="comment?.replies" :comment="reply" :current-user="currentUser" />
+      </div>
+      <!-- </div> -->
+    </template>
+  </TransitionGroup>
   <NewCommentEditor
     v-if="isReplying"
     :parent-comment-id="comment.id"
@@ -45,6 +60,7 @@ import CommentHeader from './CommentHeader.vue';
 import CommentBody from './CommentBody.vue';
 import NewCommentEditor from '../NewCommentEditor.vue';
 import { ref } from 'vue';
+import { DownOutlined, UpOutlined } from '@ant-design/icons-vue';
 
 interface IProps {
   comment: Comment;
@@ -57,6 +73,7 @@ const commentsStore = useCommentsStore();
 const isReplying = ref(false);
 const isEditing = ref(false);
 const editData = ref('');
+const showReplies = ref(true);
 
 const onEdit = (val: boolean) => {
   isEditing.value = val;
@@ -81,6 +98,10 @@ const onReplySubmit = (data: { id: number; payload: Comment }) => {
 
 const onDelete = (id: number) => {
   commentsStore.deleteComment(id);
+};
+
+const toggleReplies = () => {
+  showReplies.value = !showReplies.value;
 };
 </script>
 
@@ -143,5 +164,25 @@ const onDelete = (id: number) => {
       }
     }
   }
+}
+
+.button-icon {
+  transition: transform 0.3s ease;
+  &.active {
+    transform: rotate(180deg);
+  }
+}
+
+.fade-in-enter-active {
+  transition: all 0.3s ease;
+}
+
+.fade-in-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-in-enter,
+.fade-in-leave-to {
+  opacity: 0;
 }
 </style>
